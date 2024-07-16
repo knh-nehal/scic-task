@@ -17,6 +17,9 @@ const Register = () => {
     onSuccess: () => {
       toast.success("Registration successful.");
     },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -40,6 +43,7 @@ const Register = () => {
 
     try {
       await mutateAsync(userData);
+      form.reset();
     } catch (error) {
       console.error(error);
     }

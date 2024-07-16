@@ -33,7 +33,7 @@ const Register = () => {
 
     const userData = {
       name,
-      number: parseInt(number),
+      number,
       email,
       pin,
       type,

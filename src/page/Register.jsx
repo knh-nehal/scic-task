@@ -1,8 +1,50 @@
 /* eslint-disable react/no-unescaped-entities */
 
+import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "./../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (userData) => {
+      const { data } = await axiosSecure.post("/register", userData);
+      return data;
+    },
+
+    onSuccess: () => {
+      toast.success("Registration successful.");
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const number = form.number.value;
+    const email = form.email.value;
+    const pin = form.pin.value;
+    const type = form.type.value;
+
+    const userData = {
+      name,
+      number: parseInt(number),
+      email,
+      pin,
+      type,
+      status: "pending",
+      ammount: 0,
+    };
+
+    try {
+      await mutateAsync(userData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm">
       <div className="p-4 sm:p-7">
@@ -11,7 +53,7 @@ const Register = () => {
         </div>
 
         <div className="mt-5">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="grid gap-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm mb-2">
@@ -63,9 +105,14 @@ const Register = () => {
                   User Type
                 </label>
                 <div className="relative">
-                  <select className="py-2 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
-                    <option selected>User</option>
-                    <option>Agent</option>
+                  <select
+                    name="type"
+                    className="py-2 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                  >
+                    <option value={"user"} selected>
+                      User
+                    </option>
+                    <option value={"agent"}>Agent</option>
                   </select>
                 </div>
               </div>

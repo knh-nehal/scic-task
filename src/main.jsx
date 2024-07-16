@@ -4,9 +4,11 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import SendMoney from "./page/SendMoney";
-import CashIn from './page/CashIn';
-import CashOut from './page/CashOut';
-import History from './page/History';
+import CashIn from "./page/CashIn";
+import CashOut from "./page/CashOut";
+import History from "./page/History";
+import Login from "./page/Login";
+import Register from "./page/Register";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "/history",
         element: <History />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 function Dashboard() {
+  const { logOut } = useAuth();
+
   return (
     <>
       <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64">
@@ -49,12 +52,12 @@ function Dashboard() {
                     </p>
                   </div>
                   <div className="mt-2 py-2 first:pt-0 last:pb-0">
-                    <a
-                      className="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
-                      href="#"
+                    <button
+                      onClick={logOut}
+                      className="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500"
                     >
                       Log Out
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>

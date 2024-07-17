@@ -1,8 +1,12 @@
+import useAuth from "../hooks/useAuth";
+
 const SendMoney = () => {
+  const { user } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
   };
+
   return (
     <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm">
       <div className="p-4 sm:p-7">
